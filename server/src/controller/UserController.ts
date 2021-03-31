@@ -13,15 +13,15 @@ const userInformation = (req: any, res: any) => {
 };
 
 const addTodo = async (req: any, res: any) => {
-    const { name, dueDate, user, done } = req.body;
-    const newTask = new Task({ dueDate: new Date(dueDate), name, done: done || false });
+    const { name, user, done } = req.body;
+    const newTask = new Task({ name, done: false });
     const oldTasks = user.todoTasks;
-
+    const newTasks = [...oldTasks, newTask];
     try {
-        user.todoTasks = [...oldTasks, newTask];
-        const updatedUser = await user.save();
+        user.todoTasks = newTasks;
+        await user.save();
 
-        res.json(updatedUser);
+        res.json({ todoTasks: newTasks });
 
     } catch (error) {
         res.json({ error });
@@ -29,8 +29,8 @@ const addTodo = async (req: any, res: any) => {
 };
 
 const updateTodo = async (req: any, res: any) => {
-    const { name, dueDate, user, done, _id } = req.body;
-    const newTask = new Task({ dueDate: new Date(dueDate), name, done });
+    const { name, user, done, _id } = req.body;
+    const newTask = new Task({ name, done });
     let taskExists: boolean = false;
 
     const newTasks = user.todoTasks.map((task: any) => {
@@ -48,9 +48,9 @@ const updateTodo = async (req: any, res: any) => {
 
     try {
         user.todoTasks = newTasks;
-        const updatedUser = await user.save();
+        await user.save();
 
-        res.json(updatedUser);
+        res.json({ todoTasks: newTasks });
 
     } catch (error) {
         res.json({ error });
@@ -74,9 +74,9 @@ const deleteTodo = async (req: any, res: any) => {
 
     try {
         user.todoTasks = newTasks;
-        const updatedUser = await user.save();
+        await user.save();
 
-        res.json(updatedUser);
+        res.json({ todoTasks: newTasks });
 
     } catch (error) {
         res.json({ error });

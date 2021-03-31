@@ -1,0 +1,46 @@
+.usersTodos {
+  width: 100%;
+}
+.addNewTask input {
+  font-size: 18px;
+  color: #555;
+  line-height: 1.2;
+  display: block;
+  width: 60%;
+  margin: auto;
+  height: 52px;
+  background: 0 0;
+  padding: 0 5px;
+  border: none;
+  border-bottom: 2px solid rgb(168, 164, 164);
+  outline: none;
+  margin: 50px auto;
+}
+.filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+.hideDone,
+.showDoneOnly {
+  margin: 0px 20px;
+  background-color: rgb(155, 223, 223);
+  border-radius: 5px;
+  padding: 7px 15px;
+  margin: auto 15px;
+  transition: 0.2s ease-in-out;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  cursor: pointer;
+  transition: 05.s ease-in-out;
+}
+.hideDone:hover,
+.showDoneOnly:hover {
+  transform: scale(1.1);
+  transition: 05.s ease-in-out;
+}
