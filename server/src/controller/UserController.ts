@@ -97,7 +97,7 @@ const registerUser = async (req: any, res: any) => {
         const savedUser = await user.save();
         const token = generateToken({ email });
 
-        res.json({ savedUser, token });
+        res.json({ savedUser, token, todoTasks: [] });
     } catch (error) {
         res.json({ error });
     }
@@ -113,7 +113,7 @@ const loginUser = async (req: any, res: any) => {
         if (validPassword) {
             const token = generateToken({ email: user.email });
 
-            res.json({ token, todo: user.todoTasks });
+            res.json({ token, todoTasks: user.todoTasks });
         } else {
             res.json({ error: { message: 'Email and password credentials does not match.' } });
         }

@@ -8,22 +8,30 @@ import {
 import Login from './components/login/Login';
 import SignUp from './components/signup/SignUp';
 import Dashboard from './components/dashboard/Dashboard';
-import { selectUser } from './redux/features/user';
+import { selectUser, setJWT, setTodoTasks } from './redux/features/user';
 import { selectError, setErrorExist, setMessage } from './redux/features/errorHandler';
 import { useSelector, useDispatch } from 'react-redux';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function App() {
   const exitButton = <FontAwesomeIcon icon={faTimesCircle} onClick={() => { dispatch(setErrorExist(false)); dispatch(setMessage('')); }} />;
+  const signOut = <FontAwesomeIcon icon={faSignOutAlt} onClick={() => { logOut() }} className="logOut" />;
 
   const user = useSelector(selectUser);
   const error = useSelector(selectError);
   const dispatch = useDispatch();
 
+  const logOut = () => {
+    localStorage.removeItem("jwt");
+    dispatch(setJWT(null));
+    dispatch(setTodoTasks([]));
+  }
+
   return (
     <Router>
       <div className="App">
+        {signOut}
         {error.errorExist ? <div className="errorContainer">
           <div className="errorDiv">
             <div className="errorRelativeContainer">
@@ -45,7 +53,7 @@ function App() {
           </Route>
           <Route path="/" exact={true}>
             {(!user || !user.jwt || user.jwt === null || user.jwt === '') ? <Redirect to={{ pathname: "/login" }} />
-            :<Dashboard/>}
+              : <Dashboard />}
           </Route>
         </Switch>
       </div>

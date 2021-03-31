@@ -30,6 +30,13 @@
   color: rgb(51, 49, 49);
   cursor: pointer;
 }
+.logOut {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
 @keyframes popUp {
   from {
     top: -300px;
